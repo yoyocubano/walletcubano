@@ -45,3 +45,7 @@
     linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
   background-size: 40px 40px;
 }
+
+.font-display {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
