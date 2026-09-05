@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Auditoría Financiera — Yusmel · Sep 2026</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+<style>
+:root {
+  --bg:#f8f8f6;--surface-0:#f0efec;--surface-1:#e8e7e3;
+  --text-primary:#0b0b0b;--text-secondary:#52514e;--text-muted:#898781;
+  --border:rgba(11,11,11,0.10);--border-strong:rgba(11,11,11,0.18);
+  --radius:8px;
+  --bg-danger:#fef2f2;--text-danger:#a32d2d;
+  --bg-warning:#fffbeb;--text-warning:#854f0b;
+  --bg-success:#f0fdf4;--text-success:#3b6d11;
+  --bg-accent:#eff6ff;--text-accent:#185fa5;
+  --fill-accent:#2a78d6;--on-accent:#ffffff;
+  --text-pro:#6250d6;--bg-pro:#f5f3ff;
+  --font-sans:'Segoe UI',system-ui,-apple-system,sans-serif;
+}
+@media(prefers-color-scheme:dark){
+  :root{
+    --bg:#1a1a19;--surface-0:#222220;--surface-1:#2a2a28;
+    --text-primary:#f0efec;--text-secondary:#c3c2b7;--text-muted:#898781;
+    --border:rgba(255,255,255,0.10);--border-strong:rgba(255,255,255,0.18);
+    --bg-danger:#3b1212;--text-danger:#f09595;
+    --bg-warning:#3b2800;--text-warning:#fac775;
+    --bg-success:#0d2b0d;--text-success:#97c459;
+    --bg-accent:#0c2a4a;--text-accent:#85b7eb;
+    --fill-accent:#3987e5;--on-accent:#fff;
+    --text-pro:#9085e9;--bg-pro:#1e1a3a;
+  }
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--font-sans);background:var(--bg);color:var(--text-primary);min-height:100vh;padding:24px 16px;}
+.container{max-width:480px;margin:0 auto;}
+h1{font-size:18px;font-weight:500;margin-bottom:4px;}
+.subtitle{font-size:13px;color:var(--text-muted);margin-bottom:8px;}
+.sync-bar{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--text-muted);margin-bottom:20px;padding:8px 10px;background:var(--surface-0);border-radius:var(--radius);}
+.sync-dot{width:7px;height:7px;border-radius:50%;background:#ccc;flex-shrink:0;}
+.sync-dot.ok{background:#3b6d11;} .sync-dot.err{background:#a32d2d;} .sync-dot.loading{background:#854f0b;animation:pulse 1s infinite;}
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
+.btn-sync{margin-left:auto;font-size:11px;padding:4px 10px;border-radius:5px;border:0.5px solid var(--border-strong);background:var(--surface-1);color:var(--text-secondary);cursor:pointer;}
+.btn-sync:hover{background:var(--fill-accent);color:var(--on-accent);border-color:var(--fill-accent);}
+.sec{margin-bottom:20px;}
+.sec-title{font-size:11px;font-weight:500;color:var(--text-muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px;}
+.kpi-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;}
+.kpi{background:var(--surface-0);border-radius:var(--radius);padding:12px 14px;}
+.kpi-label{font-size:11px;color:var(--text-secondary);margin-bottom:4px;}
+.kpi-val{font-size:20px;font-weight:500;line-height:1;}
+.kpi-sub{font-size:11px;color:var(--text-muted);margin-top:3px;}
+.kpi-val.pos{color:var(--text-success);} .kpi-val.neg{color:var(--text-danger);} .kpi-val.warn{color:var(--text-warning);}
+.kpi-hero{background:var(--bg-success);border-radius:var(--radius);padding:16px 14px;margin-bottom:8px;}
+.bar-row{display:flex;align-items:center;gap:8px;margin-bottom:7px;}
+.bar-label{font-size:12px;color:var(--text-secondary);width:90px;flex-shrink:0;}
+.bar-track{flex:1;height:6px;background:var(--surface-0);border-radius:3px;overflow:hidden;}
+.bar-fill{height:100%;border-radius:3px;transition:width .4s ease;}
+.bar-amt{font-size:11px;color:var(--text-muted);width:50px;text-align:right;flex-shrink:0;}
+.alert{border-radius:var(--radius);padding:10px 12px;font-size:12px;line-height:1.5;margin-bottom:6px;display:flex;gap:8px;align-items:flex-start;}
+.alert i{flex-shrink:0;margin-top:1px;font-size:14px;}
+.alert.danger{background:var(--bg-danger);color:var(--text-danger);}
+.alert.warn{background:var(--bg-warning);color:var(--text-warning);}
+.alert.success{background:var(--bg-success);color:var(--text-success);}
+.alert.info{background:var(--bg-accent);color:var(--text-accent);}
+.rec{background:var(--surface-0);border-radius:var(--radius);padding:12px 14px;margin-bottom:8px;display:flex;gap:10px;align-items:flex-start;}
+.rec-icon{flex-shrink:0;width:28px;height:28px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:14px;}
+.rec-icon.tr{background:var(--bg-pro);color:var(--text-pro);}
+.rec-icon.rv{background:var(--bg-accent);color:var(--text-accent);}
+.rec-icon.gen{background:var(--bg-success);color:var(--text-success);}
+.rec-icon.warn{background:var(--bg-warning);color:var(--text-warning);}
+.rec-body{flex:1;min-width:0;}
+.rec-title{font-size:13px;font-weight:500;}
+.rec-desc{font-size:12px;color:var(--text-secondary);margin-top:3px;line-height:1.5;}
+.rec-gain{font-size:11px;font-weight:500;color:var(--text-success);margin-top:4px;}
+.tabs{display:flex;gap:4px;margin-bottom:14px;}
+.tab{flex:1;padding:7px 0;font-size:12px;font-weight:500;text-align:center;border-radius:var(--radius);cursor:pointer;border:0.5px solid var(--border-strong);background:var(--surface-0);color:var(--text-secondary);transition:all .15s;}
+.tab.active{background:var(--fill-accent);color:var(--on-accent);border-color:var(--fill-accent);}
+.tab-panel{display:none;} .tab-panel.active{display:block;}
+.divider{height:0.5px;background:var(--border);margin:14px 0;}
+.scenario-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:0.5px solid var(--border);}
+.scenario-row:last-child{border-bottom:none;}
+.scenario-label{font-size:12px;color:var(--text-secondary);}
+.scenario-val{font-size:13px;font-weight:500;}
+.scenario-val.accent{color:var(--text-accent);} .scenario-val.success{color:var(--text-success);}
+.plan-phase{border-left:2px solid var(--fill-accent);padding-left:12px;margin-bottom:16px;}
+.plan-phase-title{font-size:12px;font-weight:500;color:var(--text-accent);margin-bottom:8px;text-transform:uppercase;letter-spacing:.05em;}
+</style>
+</head>
+<body>
+<div class="container">
+  <h1>Auditoría financiera</h1>
+  <p class="subtitle">Yusmel · Trade Republic + Revolut + Spuerkees</p>
+
+  <div class="sync-bar">
+    <div class="sync-dot" id="sync-dot"></div>
+    <span id="sync-label">Sin conectar — pega la URL del Web App en el código</span>
+    <button class="btn-sync" onclick="syncNow()">↻ Sync</button>
+  </div>
+
+  <div class="sec">
+    <div class="sec-title">Patrimonio · <span id="fecha-label">4 sep 2026</span></div>
+    <div class="kpi-row">
+      <div class="kpi"><div class="kpi-label">Trade Republic total</div><div class="kpi-val" id="kpi-tr">€6.278</div><div class="kpi-sub" id="kpi-tr-sub">cash €5.306 · ETFs €972</div></div>
+      <div class="kpi"><div class="kpi-label">Cuentas por cobrar</div><div class="kpi-val pos" id="kpi-cobrar">€4.600</div><div class="kpi-sub">Atelier Prestige</div></div>
+      <div class="kpi"><div class="kpi-label">Toyota (último pago)</div><div class="kpi-val neg" id="kpi-toyota">−€2.880</div><div class="kpi-sub">cierra contrato 568619</div></div>
+      <div class="kpi"><div class="kpi-label">Préstamo Sandrine</div><div class="kpi-val warn" id="kpi-sandrine">€10.000</div><div class="kpi-sub" id="kpi-sandrine-sub">€302,78/mes · hasta ~2029</div></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-title">Patrimonio neto real</div>
+    <div class="kpi-hero">
+      <div class="kpi-label" style="color:var(--text-success)">TR + cobrar − Toyota − Sandrine pendiente</div>
+      <div class="kpi-val pos" style="font-size:26px" id="kpi-neto">≈ €7.998</div>
+      <div class="kpi-sub" style="color:var(--text-success)">sin contar Revolut</div>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" onclick="switchTab('alertas')">Alertas</div>
+    <div class="tab" onclick="switchTab('gastos')">Gastos</div>
+    <div class="tab" onclick="switchTab('plan')">Plan</div>
+  </div>
+
+  <div id="tab-alertas" class="tab-panel active">
+    <div class="alert danger"><i class="ti ti-alert-triangle"></i><span><strong>Multas recurrentes:</strong> €49 + €24 en agosto. ~€876/año a ese ritmo.</span></div>
+    <div class="alert warn"><i class="ti ti-tools-kitchen-2"></i><span><strong>Restauración:</strong> €200–350/mes. En un año hasta €4.200.</span></div>
+    <div class="alert warn"><i class="ti ti-clock"></i><span><strong>Factura €4.600 sin emitir:</strong> cada mes sin facturar = €7,67 de interés perdido en TR.</span></div>
+    <div class="alert danger"><i class="ti ti-trending-down"></i><span><strong>TR cayó €4.942 en 7 semanas</strong> (jul → sep). Retiro €3.000 + gastos tarjeta TR.</span></div>
+    <div class="alert success"><i class="ti ti-check"></i><span><strong>CDI asegurado.</strong> Salario €2.762/mes, ETFs activos. Base sólida.</span></div>
+    <div class="alert info"><i class="ti ti-player-play"></i><span><strong>Tras saldar Sandrine (~2029):</strong> €302,78/mes liberados van a ETFs en TR.</span></div>
+  </div>
+
+  <div id="tab-gastos" class="tab-panel">
+    <div class="sec-title">Estimado mensual (base extractos)</div>
+    <div id="bars-container"></div>
+    <div class="divider"></div>
+    <div class="alert warn"><i class="ti ti-credit-card"></i><span>Gastos cotidianos con tarjeta TR generan cashback 1%. Evita retirar grandes sumas desde TR: reduce el saldo que genera interés 2%.</span></div>
+  </div>
+
+  <div id="tab-plan" class="tab-panel">
+    <div class="plan-phase">
+      <div class="plan-phase-title">Fase 1 — Ahora (sep 2026)</div>
+      <div class="rec"><div class="rec-icon tr"><i class="ti ti-pig-money"></i></div><div class="rec-body"><div class="rec-title">Paga el Toyota desde TR</div><div class="rec-desc">SEPA Instant · IBAN BE43 3632 0651 8801 · ref 568619 · €2.880.</div><div class="rec-gain">Deuda €0 — un compromiso menos</div></div></div>
+      <div class="rec"><div class="rec-icon gen"><i class="ti ti-file-invoice"></i></div><div class="rec-body"><div class="rec-title">Emite la factura €4.600</div><div class="rec-desc">En cuanto entre, €4.000 a TR al 2% de interés.</div><div class="rec-gain">+€6,60/mes de interés automático</div></div></div>
+      <div class="rec"><div class="rec-icon rv"><i class="ti ti-calendar-repeat"></i></div><div class="rec-body"><div class="rec-title">Cuba fija: €150/mes en Revolut</div><div class="rec-desc">Transferencia recurrente día 5 a Walter Antonio.</div><div class="rec-gain">Evita el saldo negativo de junio</div></div></div>
+    </div>
+    <div class="plan-phase" style="border-color:#eda100">
+      <div class="plan-phase-title" style="color:var(--text-warning)">Fase 2 — Hasta saldar Sandrine (~2029)</div>
+      <div class="rec"><div class="rec-icon tr"><i class="ti ti-credit-card"></i></div><div class="rec-body"><div class="rec-title">Cashback máximo: €800/mes tarjeta TR</div><div class="rec-desc">Gasolina, supermercado, Orange, seguros → tarjeta TR.</div><div class="rec-gain">€180/año gratis</div></div></div>
+      <div class="rec"><div class="rec-icon tr"><i class="ti ti-chart-line"></i></div><div class="rec-body"><div class="rec-title">ETF automático €100/mes</div><div class="rec-desc">iShares MSCI World 60% · S&P500 30% · FTSE All-World 10%.</div><div class="rec-gain">Interés compuesto desde ya</div></div></div>
+      <div class="rec"><div class="rec-icon warn"><i class="ti ti-alert-triangle"></i></div><div class="rec-body"><div class="rec-title">Elimina multas y fast food</div><div class="rec-desc">Waze con alertas radar. BK/McD máx 2 veces/semana.</div><div class="rec-gain">€200/mes recuperado → salda Sandrine antes</div></div></div>
+    </div>
+    <div class="plan-phase" style="border-color:#1baf7a">
+      <div class="plan-phase-title" style="color:var(--text-success)">Fase 3 — Tras saldar Sandrine (2029+)</div>
+      <div class="rec"><div class="rec-icon gen"><i class="ti ti-rocket"></i></div><div class="rec-body"><div class="rec-title">Sube ETF a €302,78/mes adicionales</div><div class="rec-desc">Los €302,78 que pagabas a Sandrine → plan automático TR.</div><div class="rec-gain">A 7% anual / 10 años → +€52.000</div></div></div>
+    </div>
+    <div class="divider"></div>
+    <div class="sec-title">Proyección 12 meses</div>
+    <div class="scenario-row"><div class="scenario-label">Interés TR sobre saldo (~€6K)</div><div class="scenario-val success" id="proj-interes">+€120/año</div></div>
+    <div class="scenario-row"><div class="scenario-label">Cashback tarjeta TR (€800/mes)</div><div class="scenario-val success">+€96/año</div></div>
+    <div class="scenario-row"><div class="scenario-label">Factura €4.600 al 2% en TR</div><div class="scenario-val success">+€92/año</div></div>
+    <div class="scenario-row"><div class="scenario-label">ETFs €100/mes · 7% anual</div><div class="scenario-val accent">+€1.250 acumulado</div></div>
+    <div class="scenario-row" style="border-top:1px solid var(--border);padding-top:12px;margin-top:4px"><div class="scenario-label" style="font-weight:500;color:var(--text-primary)">Total extra vs no hacer nada</div><div class="scenario-val success" style="font-size:16px">+€1.558+</div></div>
+  </div>
+</div>
+
+<script>
+// ── CONFIGURACIÓN ────────────────────────────────────────────────────────────
+// Pega aquí la URL de tu Google Apps Script Web App (sync_sheet.gs → Implementar)
+const WEB_APP_URL = '';
+// ─────────────────────────────────────────────────────────────────────────────
+
+const DEFAULTS = {
+  tr_cash:5305.84, tr_etf:972.11, cobrar:4600, toyota:2880,
+  sandrine_total:10000, sandrine_mes:302.78,
+  gastos:[
+    {label:'Sandrine',     amt:302.78, color:'#2a78d6', max:600},
+    {label:'Restauración', amt:275,    color:'#eb6834', max:600},
+    {label:'Gasolina',     amt:155,    color:'#eda100', max:300},
+    {label:'Orange',       amt:80,     color:'#1baf7a', max:200},
+    {label:'Claude+IONOS', amt:45,     color:'#6250d6', max:100},
+    {label:'Seguros Lalux',amt:184,    color:'#888780', max:300},
+    {label:'Multas',       amt:73,     color:'#e34948', max:150},
+    {label:'Cuba',         amt:150,    color:'#1baf7a', max:300},
+  ]
+};
+
+function fmt(n){ return '€'+Math.abs(n).toLocaleString('es-LU',{minimumFractionDigits:0,maximumFractionDigits:0}); }
+
+function renderAll(d){
+  const tr_total = (d.tr_cash||0)+(d.tr_etf||0);
+  const neto = tr_total+(d.cobrar||0)-(d.toyota||0)-(d.sandrine_total||0);
+  document.getElementById('kpi-tr').textContent = fmt(tr_total);
+  document.getElementById('kpi-tr-sub').textContent = 'cash '+fmt(d.tr_cash)+' · ETFs '+fmt(d.tr_etf);
+  document.getElementById('kpi-cobrar').textContent = fmt(d.cobrar);
+  document.getElementById('kpi-toyota').textContent = '−'+fmt(d.toyota);
+  document.getElementById('kpi-sandrine').textContent = fmt(d.sandrine_total);
+  document.getElementById('kpi-sandrine-sub').textContent = fmt(d.sandrine_mes)+'/mes · hasta ~2029';
+  document.getElementById('kpi-neto').textContent = '≈ '+fmt(neto);
+  document.getElementById('proj-interes').textContent = '+€'+Math.round(tr_total*0.02)+'/año';
+  const bc = document.getElementById('bars-container');
+  bc.innerHTML='';
+  (d.gastos||DEFAULTS.gastos).forEach(function(g){
+    const pct=Math.min(100,Math.round((g.amt/g.max)*100));
+    bc.innerHTML+=`<div class="bar-row"><div class="bar-label">${g.label}</div><div class="bar-track"><div class="bar-fill" style="width:${pct}%;background:${g.color}"></div></div><div class="bar-amt">${fmt(g.amt)}</div></div>`;
+  });
+}
+
+function setSyncStatus(s,msg){
+  document.getElementById('sync-dot').className='sync-dot '+s;
+  document.getElementById('sync-label').textContent=msg;
+}
+
+async function syncNow(){
+  if(!WEB_APP_URL){ setSyncStatus('err','Falta WEB_APP_URL — edita auditoria.html'); return; }
+  setSyncStatus('loading','Sincronizando...');
+  try{
+    const r=await fetch(WEB_APP_URL+'?t='+Date.now());
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    const data=await r.json();
+    renderAll(data);
+    setSyncStatus('ok','Sincronizado · '+new Date().toLocaleTimeString('es-LU'));
+  }catch(e){ setSyncStatus('err','Error: '+e.message); }
+}
+
+function switchTab(name){
+  ['alertas','gastos','plan'].forEach(function(n,i){
+    document.querySelectorAll('.tab')[i].classList.toggle('active',n===name);
+    document.getElementById('tab-'+n).classList.toggle('active',n===name);
+  });
+}
+
+renderAll(DEFAULTS);
+if(WEB_APP_URL) syncNow();
+</script>
+</body>
+</html>
