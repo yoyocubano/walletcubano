@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WeLux Digital Advisory Pass | Apple Wallet & Google Wallet</title>
+  <meta name="description" content="Lleva en tu Apple Wallet o Google Wallet el pase exclusivo de WeLux Digital Services. Optimización de CV para el mercado de Luxemburgo y asesoría integral para crear y legalizar tu empresa (SARL-S).">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- JSZip for dynamic .pkpass bundle generation -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            gold: {
+              300: '#F3E5AB',
+              400: '#E5C158',
+              500: '#D4AF37',
+              600: '#AA771C',
+              700: '#8C6D1F',
+            },
+            dark: {
+              900: '#07090E',
+              800: '#0E111A',
+              700: '#141824',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* 3D Card Flip Styling */
+    .card-container {
+      perspective: 1200px;
+    }
+    .card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.7s cubic-bezier(0.23, 1, 0.32, 1);
+      transform-style: preserve-3d;
+    }
+    .card-inner.flipped {
+      transform: rotateY(180deg);
+    }
+    .card-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      border-radius: 28px;
+    }
+    .card-back {
+      transform: rotateY(180deg);
+    }
+    /* Luxury reflections */
+    .gold-gradient {
+      background: linear-gradient(135deg, #F3E5AB 0%, #D4AF37 50%, #AA771C 100%);
+    }
+    .gold-text {
+      background: linear-gradient(135deg, #F3E5AB 0%, #D4AF37 50%, #AA771C 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+  </style>
+</head>
+<body class="bg-[#07090E] text-white font-sans antialiased selection:bg-[#D4AF37] selection:text-black">
+
+  <!-- Floating iOS Simulated Lock Screen Notification -->
+  <div id="ios-notification" class="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[92%] max-w-md bg-black/90 backdrop-blur-2xl border border-white/20 rounded-3xl p-4 shadow-2xl text-white flex items-start gap-3.5 ring-1 ring-[#D4AF37]/40 transition-all duration-500 opacity-0 pointer-events-none -translate-y-12">
+    <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#D4AF37] to-[#8C6D1F] flex items-center justify-center text-black font-black flex-shrink-0 shadow-lg text-lg">
+      ⚡
+    </div>
+    <div class="flex-1 min-w-0 text-left">
+      <div class="flex justify-between items-center mb-0.5">
+        <span id="notif-title" class="text-xs font-bold text-gray-300 uppercase tracking-wider">WeLux Career Alert</span>
+        <span class="text-[10px] text-gray-400">Ahora</span>
+      </div>
+      <p id="notif-body" class="text-xs text-gray-100 font-normal leading-snug">
+        Nueva vacante en Luxemburgo con match del 95% para tu perfil.
+      </p>
+    </div>
+  </div>
+
+  <!-- Header Navigation -->
+  <header class="fixed top-0 left-0 right-0 z-40 bg-[#07090E]/80 backdrop-blur-lg border-b border-white/10">
+    <div class="max-w-7xl mx-auto px-4 h-20 flex items-center justify-between">
+      <a href="https://weluxevents.com" class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#D4AF37] to-[#8C6D1F] p-0.5 shadow-md flex items-center justify-center">
+          <span class="text-black font-black text-xl">W</span>
+        </div>
+        <div>
+          <span class="text-xs font-black tracking-[0.25em] text-gray-400 block uppercase">WeLux Advisory</span>
+          <span class="text-sm font-black text-white">Services SARL-S</span>
+        </div>
+      </a>
+
+      <div class="flex items-center gap-4">
+        <button onclick="triggerNotification('business')" class="hidden md:inline-flex items-center gap-2 text-xs font-semibold px-4 py-2 rounded-full border border-white/20 bg-white/5 hover:bg-white/10 transition-colors">
+          <span>🔔</span> Probar Alerta Push
+        </button>
+        <a href="#builder" class="bg-gradient-to-r from-[#D4AF37] to-[#B5952F] text-black font-bold text-xs px-5 py-2.5 rounded-full hover:scale-105 transition-all shadow-lg shadow-[#D4AF37]/20">
+          Obtener Pase
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="pt-36 pb-20 relative overflow-hidden">
+    <div class="absolute inset-0 pointer-events-none">
+      <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-[#D4AF37]/10 blur-[140px] rounded-full"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 relative z-10 text-center">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#D4AF37]/30 bg-[#D4AF37]/10 backdrop-blur-md mb-6">
+        <span class="text-xs font-bold text-[#D4AF37] tracking-widest uppercase">
+          📲 Formato Nativo Apple Wallet &amp; Google Wallet
+        </span>
+      </div>
+
+      <h1 class="text-4xl sm:text-5xl md:text-7xl font-black tracking-tight leading-tight mb-6 max-w-4xl mx-auto">
+        El Futuro de la Asesoría: <br>
+        <span class="gold-text">En la Billetera de tu Móvil</span>
+      </h1>
+
+      <p class="text-lg md:text-xl text-gray-300 font-light leading-relaxed mb-8 max-w-3xl mx-auto">
+        Sin apps pesadas. Sin tarjetas de visita de papel. Acceso directo a <strong class="text-white font-semibold">optimización de CV ATS para el mercado de Luxemburgo</strong> y <strong class="text-white font-semibold">asesoría integral para crear tu empresa (SARL-S)</strong>.
+      </p>
+
+      <div class="flex flex-wrap justify-center gap-4 mb-16">
+        <a href="#builder" class="bg-gradient-to-r from-[#D4AF37] to-[#B5952F] text-black font-extrabold px-8 py-4 rounded-full hover:scale-105 transition-all text-sm shadow-xl shadow-[#D4AF37]/20">
+          ✨ Crear Mi Pase Digital Gratuito
+        </a>
+        <button onclick="triggerNotification('cv')" class="border border-white/20 bg-white/5 hover:bg-white/10 text-white font-semibold px-6 py-4 rounded-full text-sm transition-all flex items-center gap-2">
+          <span>🔔</span> Ver Demo Notificación en Bloqueo
+        </button>
+      </div>
+
+      <!-- 3D Card + Customizer Area -->
+      <div id="builder" class="grid lg:grid-cols-12 gap-12 items-center text-left pt-6">
+        
+        <!-- Left: Interactive 3D Apple Wallet Pass -->
+        <div class="lg:col-span-6 flex flex-col items-center">
+          <div class="card-container w-full max-w-[380px] h-[520px] cursor-pointer" onclick="toggleCardFlip()">
+            <div id="card-inner" class="card-inner shadow-[0_25px_60px_-15px_rgba(212,175,55,0.25)] rounded-[28px]">
+              
+              <!-- CARD FRONT -->
+              <div class="card-face bg-gradient-to-b from-[#141824] via-[#0E111A] to-[#080A0F] border border-[#D4AF37]/40 p-6 flex flex-col justify-between overflow-hidden">
+                <!-- Glare reflection -->
+                <div class="absolute top-0 right-0 w-64 h-64 bg-gradient-to-bl from-white/10 via-transparent to-transparent pointer-events-none"></div>
+
+                <!-- Top details -->
+                <div>
+                  <div class="flex justify-between items-start mb-4">
+                    <div class="flex items-center gap-3">
+                      <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#D4AF37] to-[#8C6D1F] p-0.5 shadow-md flex items-center justify-center">
+                        <span class="text-black font-black text-xl">W</span>
+                      </div>
+                      <div>
+                        <p class="text-[10px] font-black text-gray-400 tracking-[0.25em] uppercase">WeLux Advisory</p>
+                        <p class="text-xs font-black text-white">Services SARL-S</p>
+                      </div>
+                    </div>
+                    <span id="badge-tier" class="px-3 py-1 rounded-full text-[10px] font-black tracking-widest uppercase bg-[#D4AF37]/15 text-[#D4AF37] border border-[#D4AF37]/40">
+                      VIP DUAL
+                    </span>
+                  </div>
+
+                  <div class="border-t border-white/10 pt-3">
+                    <p class="text-[9px] uppercase font-bold tracking-wider text-[#D4AF37]">CATEGORÍA DE ASESORÍA</p>
+                    <p id="card-category" class="text-base font-black text-white tracking-wide">CAREER &amp; BUSINESS VIP PASS</p>
+                  </div>
+                </div>
+
+                <!-- Middle details -->
+                <div class="space-y-4 my-auto">
+                  <div>
+                    <p class="text-[9px] uppercase font-bold tracking-wider text-gray-400">TITULAR DEL PASE</p>
+                    <p id="card-name" class="text-xl font-black text-white uppercase tracking-tight truncate">YUSMEL COLOMBO</p>
+                  </div>
+
+                  <div class="bg-white/5 border border-white/10 rounded-2xl p-3 backdrop-blur-md flex items-center justify-between">
+                    <div>
+                      <p class="text-[9px] uppercase font-bold tracking-wider text-[#D4AF37]">SERVICIO ACTIVO</p>
+                      <p id="card-service" class="text-xs font-semibold text-gray-200">CV ATS Europeo + Creación de Empresas...</p>
+                    </div>
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse ml-2 flex-shrink-0"></span>
+                  </div>
+                </div>
+
+                <!-- Bottom details & QR code -->
+                <div>
+                  <div class="grid grid-cols-3 gap-2 py-3 border-t border-white/10 text-center mb-3">
+                    <div>
+                      <p class="text-[9px] uppercase font-bold text-gray-400">ID MIEMBRO</p>
+                      <p id="card-id" class="text-xs font-extrabold text-white">WLX-8492</p>
+                    </div>
+                    <div>
+                      <p class="text-[9px] uppercase font-bold text-gray-400">SEDE</p>
+                      <p class="text-xs font-extrabold text-[#D4AF37]">LUXEMBOURG</p>
+                    </div>
+                    <div>
+                      <p class="text-[9px] uppercase font-bold text-gray-400">DIAGNÓSTICO</p>
+                      <p class="text-xs font-extrabold text-emerald-400">1 ACTIVO</p>
+                    </div>
+                  </div>
+
+                  <div class="bg-white rounded-2xl p-2.5 flex items-center justify-between gap-3 text-black">
+                    <img id="card-qr" src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://weluxevents.com/pass?id=WLX-8492" alt="QR" class="w-14 h-14 flex-shrink-0">
+                    <div class="flex-1 pr-1">
+                      <p class="text-[10px] font-black uppercase tracking-tight leading-tight">ESCANEA O TOCA PARA REVERSO</p>
+                      <p class="text-[9px] text-gray-500 font-mono mt-0.5">WLX-8492 • PASS VERIFIED</p>
+                    </div>
+                    <span class="text-gray-400 text-sm">↺</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- CARD BACK -->
+              <div class="card-face card-back bg-[#0E111A] border border-[#D4AF37]/50 p-6 flex flex-col justify-between overflow-y-auto">
+                <div class="space-y-4">
+                  <div class="flex justify-between items-center border-b border-white/10 pb-3">
+                    <span class="text-xs font-black uppercase text-[#D4AF37] tracking-widest">Información &amp; Acciones</span>
+                    <button class="text-xs text-gray-300 hover:text-white flex items-center gap-1">↺ Volver</button>
+                  </div>
+
+                  <div class="space-y-3 text-xs text-gray-300">
+                    <div class="bg-white/5 rounded-xl p-3 border border-white/5">
+                      <p class="font-bold text-white mb-1 flex items-center gap-1.5">📄 1. Diagnóstico de CV (ATS)</p>
+                      <p class="text-[11px] text-gray-400">Revisión de palabras clave, formato europeo y compatibilidad con reclutadores de Luxemburgo.</p>
+                    </div>
+                    <div class="bg-white/5 rounded-xl p-3 border border-white/5">
+                      <p class="font-bold text-white mb-1 flex items-center gap-1.5">🚀 2. Asesoría de Empresas (SARL-S)</p>
+                      <p class="text-[11px] text-gray-400">Paso a paso en MyGuichet, Chambre de Commerce y autorización de establecimiento.</p>
+                    </div>
+                    <div class="bg-white/5 rounded-xl p-3 border border-white/5">
+                      <p class="font-bold text-white mb-1 flex items-center gap-1.5">🔔 3. Notificaciones Push</p>
+                      <p class="text-[11px] text-gray-400">Alertas en tu pantalla de bloqueo sobre vacantes locales y normativas para autónomos.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="pt-4 border-t border-white/10 space-y-2">
+                  <a id="whatsapp-link" href="https://wa.me/352661314995?text=Hola%20WeLux,%20tengo%20el%20Pase%20Digital%20ID:%20WLX-8492%20y%20quiero%20agendar%20mi%20diagnóstico" target="_blank" onclick="event.stopPropagation()" class="w-full flex items-center justify-center gap-2 bg-[#25D366] hover:bg-[#1EBE5B] text-black font-extrabold text-xs py-3 rounded-xl transition-all shadow-md">
+                    <span>💬</span> Chatear con Concierge WhatsApp (+352)
+                  </a>
+                  <p class="text-[9px] text-center text-gray-500">WeLux Services SARL-S • Luxembourg • R.C.S. B268593</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+          <p class="text-xs text-gray-400 mt-4 flex items-center gap-1.5">
+            <span>↺</span> Toca o haz clic en la tarjeta para girarla y ver el reverso
+          </p>
+        </div>
+
+        <!-- Right: Real-Time Personalizer & Pass Download Buttons -->
+        <div class="lg:col-span-6 bg-[#0E111A]/90 border border-white/10 rounded-3xl p-6 sm:p-8 backdrop-blur-xl shadow-2xl">
+          <h2 class="text-2xl font-black text-white mb-2 flex items-center gap-2">
+            <span class="text-[#D4AF37]">✨</span> Personaliza y Guarda Tu Pase
+          </h2>
+          <p class="text-sm text-gray-400 mb-6">
+            Configura los datos que deseas mostrar en tu tarjeta para sincronizarla con tu teléfono.
+          </p>
+
+          <form onsubmit="event.preventDefault();" class="space-y-5">
+            <div>
+              <label class="text-xs font-bold text-gray-300 uppercase tracking-wider block mb-1.5">Nombre Completo</label>
+              <input type="text" id="input-name" value="Yusmel Colombo" oninput="updateCardDetails()" class="w-full h-11 px-4 rounded-xl bg-black/50 border border-white/15 text-white focus:border-[#D4AF37] focus:outline-none text-sm font-medium">
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label class="text-xs font-bold text-gray-300 uppercase tracking-wider block mb-1.5">Correo Electrónico</label>
+                <input type="email" id="input-email" value="contacto@weluxevents.com" class="w-full h-11 px-4 rounded-xl bg-black/50 border border-white/15 text-white focus:border-[#D4AF37] focus:outline-none text-sm font-medium">
+              </div>
+              <div>
+                <label class="text-xs font-bold text-gray-300 uppercase tracking-wider block mb-1.5">Teléfono / WhatsApp</label>
+                <input type="text" id="input-phone" value="+352 661 314 995" class="w-full h-11 px-4 rounded-xl bg-black/50 border border-white/15 text-white focus:border-[#D4AF37] focus:outline-none text-sm font-medium">
+              </div>
+            </div>
+
+            <div>
+              <label class="text-xs font-bold text-gray-300 uppercase tracking-wider block mb-2">Enfoque de tu Asesoría</label>
+              <div class="grid grid-cols-3 gap-2">
+                <button type="button" onclick="selectPillar('career')" id="btn-career" class="p-3 rounded-2xl border text-left transition-all bg-white/5 border-white/10 text-gray-400 hover:border-white/20">
+                  <div class="text-base mb-1">📄</div>
+                  <p class="text-xs font-black text-white">CV &amp; Empleo</p>
+                  <p class="text-[10px] text-gray-400">Booster Luxemburgo</p>
+                </button>
+                <button type="button" onclick="selectPillar('business')" id="btn-business" class="p-3 rounded-2xl border text-left transition-all bg-white/5 border-white/10 text-gray-400 hover:border-white/20">
+                  <div class="text-base mb-1">🚀</div>
+                  <p class="text-xs font-black text-white">Emprender</p>
+                  <p class="text-[10px] text-gray-400">Empresas SARL-S</p>
+                </button>
+                <button type="button" onclick="selectPillar('dual')" id="btn-dual" class="p-3 rounded-2xl border text-left transition-all bg-[#D4AF37]/15 border-[#D4AF37] text-white">
+                  <div class="text-base mb-1">👑</div>
+                  <p class="text-xs font-black text-white">Pase Dual</p>
+                  <p class="text-[10px] text-gray-400">Carrera + Negocios</p>
+                </button>
+              </div>
+            </div>
+
+            <!-- Download Buttons -->
+            <div class="pt-4 space-y-3">
+              <!-- Apple Wallet Button -->
+              <button type="button" onclick="downloadPass('apple')" class="w-full h-14 bg-black border border-white/30 hover:border-white/70 text-white rounded-2xl px-5 flex items-center justify-between transition-all hover:scale-[1.01] shadow-xl">
+                <div class="flex items-center gap-3">
+                  <div class="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center">
+                    <svg class="w-5 h-5 fill-current" viewBox="0 0 170 170"><path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.75 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.16-1.9-14.42-6.08-3.69-3.04-7.67-7.81-11.96-14.34-5.76-8.79-10.33-19.08-13.72-30.87-3.39-11.79-5.08-23.13-5.08-34.02 0-14.32 3.66-26.4 10.99-36.23 7.33-9.83 16.5-14.85 27.52-15.06 4.36 0 9.28 1.16 14.76 3.49 5.48 2.33 9.4 3.55 11.76 3.66 2.01 0 5.92-1.22 11.73-3.66 5.81-2.44 10.74-3.54 14.78-3.32 10.05.54 18.52 4.37 25.42 11.48-8.91 5.43-13.26 12.87-13.04 22.31.22 7.73 3.19 14.16 8.91 19.3 5.72 5.14 12.44 8.04 20.16 8.7-2.61 7.82-5.98 15.65-10.11 23.49zM119.22 31.86c0-7.38 2.65-14.07 7.96-20.06 5.3-6 11.78-9.44 19.43-10.33.22 1.08.33 2.17.33 3.26 0 7.39-2.73 14.24-8.19 20.55-5.46 6.3-12.01 9.87-19.53 10.71-.05-1.42 0-2.8-.0-4.13z"/></svg>
+                  </div>
+                  <div class="text-left">
+                    <p class="text-[10px] text-gray-400 font-medium">Añadir a</p>
+                    <p class="text-sm font-extrabold text-white">Apple Wallet (.pkpass)</p>
+                  </div>
+                </div>
+                <span class="text-gray-400 text-sm">→</span>
+              </button>
+
+              <!-- Google Wallet Button -->
+              <button type="button" onclick="downloadPass('google')" class="w-full h-14 bg-black border border-white/30 hover:border-white/70 text-white rounded-2xl px-5 flex items-center justify-between transition-all hover:scale-[1.01] shadow-xl">
+                <div class="flex items-center gap-3">
+                  <div class="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center text-emerald-400 text-lg">
+                    📱
+                  </div>
+                  <div class="text-left">
+                    <p class="text-[10px] text-gray-400 font-medium">Guardar en</p>
+                    <p class="text-sm font-extrabold text-white">Google Wallet (Android)</p>
+                  </div>
+                </div>
+                <span class="text-emerald-400 text-sm">→</span>
+              </button>
+            </div>
+
+            <p class="text-[11px] text-center text-gray-400 pt-1">
+              🔒 100% Gratuito • Sin descargas en tiendas de aplicaciones
+            </p>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- The 2 Pillars Details -->
+  <section class="py-24 bg-[#0A0D14] border-y border-white/5">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-xs font-black text-[#D4AF37] tracking-[0.25em] uppercase block mb-3">Cobertura Estratégica</span>
+        <h2 class="text-3xl md:text-5xl font-black text-white mb-6">Dos Soluciones de Alto Valor en tu Tarjeta</h2>
+        <p class="text-gray-400 text-base md:text-lg">Diseñado para acelerar tu contratación laboral o fundar tu propia empresa en Luxemburgo con acompañamiento profesional.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <!-- Pillar 1 Card -->
+        <div class="p-8 rounded-3xl bg-white/5 border border-white/10 hover:border-[#D4AF37]/40 transition-all flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-2xl bg-blue-500/15 text-blue-400 flex items-center justify-center text-xl mb-6">
+              📄
+            </div>
+            <span class="text-xs font-bold text-blue-400 tracking-wider uppercase block mb-2">Pilar 1: Empleabilidad Europea</span>
+            <h3 class="text-2xl font-black text-white mb-4">Optimización de CV &amp; Filtros ATS</h3>
+            <p class="text-sm text-gray-300 leading-relaxed mb-6 font-light">
+              El 75% de los CVs son descartados por software antes de que un reclutador los vea. Transformamos tu perfil para el exigente mercado de Luxemburgo.
+            </p>
+            <ul class="space-y-3 text-xs text-gray-300">
+              <li class="flex items-center gap-2">✓ Reestructuración algorítmica para escáneres ATS.</li>
+              <li class="flex items-center gap-2">✓ Adaptación multilingüe: Francés, Inglés, Español y Alemán.</li>
+              <li class="flex items-center gap-2">✓ Optimización de perfil LinkedIn para reclutadores locales.</li>
+              <li class="flex items-center gap-2">✓ Preparación de entrevistas y negociación salarial.</li>
+            </ul>
+          </div>
+          <a href="https://wa.me/352661314995?text=Hola%20WeLux,%20quiero%20solicitar%20el%20diagnóstico%20de%20mi%20CV%20para%20Luxemburgo" target="_blank" class="mt-8 inline-flex items-center justify-center gap-2 w-full py-3.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs transition-colors">
+            Solicitar Auditoría Gratuita de CV →
+          </a>
+        </div>
+
+        <!-- Pillar 2 Card -->
+        <div class="p-8 rounded-3xl bg-white/5 border border-white/10 hover:border-[#D4AF37]/40 transition-all flex flex-col justify-between">
+          <div>
+            <div class="w-12 h-12 rounded-2xl bg-purple-500/15 text-purple-400 flex items-center justify-center text-xl mb-6">
+              🚀
+            </div>
+            <span class="text-xs font-bold text-purple-400 tracking-wider uppercase block mb-2">Pilar 2: Negocios &amp; Startups</span>
+            <h3 class="text-2xl font-black text-white mb-4">Creación de Empresas en Luxemburgo</h3>
+            <p class="text-sm text-gray-300 leading-relaxed mb-6 font-light">
+              Te acompañamos de la idea a la facturación para fundar tu sociedad (SARL / SARL-S con capital desde 1€) cumpliendo toda la normativa del Gran Ducado.
+            </p>
+            <ul class="space-y-3 text-xs text-gray-300">
+              <li class="flex items-center gap-2">✓ Constitución y redacción de estatutos para SARL-S.</li>
+              <li class="flex items-center gap-2">✓ Permiso de establecimiento (Autorisation d'établissement).</li>
+              <li class="flex items-center gap-2">✓ Tramitación en MyGuichet, Chambre de Commerce y TVA.</li>
+              <li class="flex items-center gap-2">✓ Solución digital llave en mano: Web, CRM y pagos online.</li>
+            </ul>
+          </div>
+          <a href="https://wa.me/352661314995?text=Hola%20WeLux,%20quiero%20agendar%20una%20sesión%20para%20crear%20mi%20empresa%20en%20Luxemburgo" target="_blank" class="mt-8 inline-flex items-center justify-center gap-2 w-full py-3.5 rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#B5952F] text-black font-extrabold text-xs transition-all shadow-md">
+            Agendar Asesoría de Creación de Empresa →
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-12 bg-black border-t border-white/10 text-center text-xs text-gray-500">
+    <div class="max-w-7xl mx-auto px-4 space-y-3">
+      <p class="text-white font-bold tracking-widest uppercase">WeLux Services SARL-S</p>
+      <p>Luxembourg • R.C.S. Luxembourg B268593 • TVA: LU34169528</p>
+      <p class="text-gray-600">© 2026 WeLux Digital Services. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <!-- Script for Card Logic & JSZip PKPass Packaging -->
+  <script>
+    let currentPillar = "dual";
+    let isFlipped = false;
+    const memberId = "WLX-" + Math.floor(1000 + Math.random() * 9000);
+
+    // Initialize Card ID
+    document.getElementById("card-id").innerText = memberId;
+    document.getElementById("card-qr").src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://weluxevents.com/pass?id=${memberId}`;
+    updateWhatsAppLink();
+
+    function toggleCardFlip() {
+      isFlipped = !isFlipped;
+      const inner = document.getElementById("card-inner");
+      if (isFlipped) {
+        inner.classList.add("flipped");
+      } else {
+        inner.classList.remove("flipped");
+      }
+    }
+
+    function updateCardDetails() {
+      const name = document.getElementById("input-name").value.trim() || "TITULAR DEL PASE";
+      document.getElementById("card-name").innerText = name.toUpperCase();
+      updateWhatsAppLink();
+    }
+
+    function selectPillar(pillar) {
+      currentPillar = pillar;
+      const btnCareer = document.getElementById("btn-career");
+      const btnBiz = document.getElementById("btn-business");
+      const btnDual = document.getElementById("btn-dual");
+      const badgeTier = document.getElementById("badge-tier");
+      const cardCategory = document.getElementById("card-category");
+      const cardService = document.getElementById("card-service");
+
+      [btnCareer, btnBiz, btnDual].forEach(btn => {
+        btn.className = "p-3 rounded-2xl border text-left transition-all bg-white/5 border-white/10 text-gray-400 hover:border-white/20";
+      });
+
+      if (pillar === "career") {
+        btnCareer.className = "p-3 rounded-2xl border text-left transition-all bg-[#D4AF37]/15 border-[#D4AF37] text-white";
+        badgeTier.innerText = "CAREER PASS";
+        cardCategory.innerText = "CV & CAREER BOOST PASS";
+        cardService.innerText = "Optimización de CV ATS + Asesoría ADEM";
+      } else if (pillar === "business") {
+        btnBiz.className = "p-3 rounded-2xl border text-left transition-all bg-[#D4AF37]/15 border-[#D4AF37] text-white";
+        badgeTier.innerText = "BIZ PASS";
+        cardCategory.innerText = "STARTUP & BUSINESS PASS";
+        cardService.innerText = "Constitución de Empresas SARL-S...";
+      } else {
+        btnDual.className = "p-3 rounded-2xl border text-left transition-all bg-[#D4AF37]/15 border-[#D4AF37] text-white";
+        badgeTier.innerText = "VIP DUAL";
+        cardCategory.innerText = "CAREER & BUSINESS VIP PASS";
+        cardService.innerText = "CV ATS Europeo + Creación de Empresas...";
+      }
+
+      updateWhatsAppLink();
+    }
+
+    function updateWhatsAppLink() {
+      const name = document.getElementById("input-name").value.trim() || "Titular";
+      const text = encodeURIComponent(`Hola WeLux, soy ${name}. Tengo el Pase Digital ID: ${memberId} (${currentPillar.toUpperCase()}) y quiero coordinar mi asesoría.`);
+      document.getElementById("whatsapp-link").href = `https://wa.me/352661314995?text=${text}`;
+    }
+
+    function triggerNotification(type) {
+      const notif = document.getElementById("ios-notification");
+      const title = document.getElementById("notif-title");
+      const body = document.getElementById("notif-body");
+
+      if (type === "cv") {
+        title.innerText = "WeLux Career Alert 📄";
+        body.innerText = "Nueva vacante Senior en Luxemburgo (Finanzas/IT) con match del 95% para tu perfil.";
+      } else {
+        title.innerText = "WeLux Business Advisory 🚀";
+        body.innerText = "Actualización MyGuichet: Abierto plazo de ayudas para constitución de SARL-S en Luxemburgo.";
+      }
+
+      notif.classList.remove("opacity-0", "pointer-events-none", "-translate-y-12");
+      notif.classList.add("opacity-100", "translate-y-0");
+
+      setTimeout(() => {
+        notif.classList.remove("opacity-100", "translate-y-0");
+        notif.classList.add("opacity-0", "pointer-events-none", "-translate-y-12");
+      }, 6000);
+    }
+
+    async function downloadPass(format) {
+      const fullName = document.getElementById("input-name").value.trim() || "Yusmel Colombo";
+      const email = document.getElementById("input-email").value.trim() || "contacto@weluxevents.com";
+
+      const passData = {
+        formatVersion: 1,
+        passTypeIdentifier: "pass.lu.weluxevents.advisory",
+        serialNumber: memberId,
+        teamIdentifier: "WELUXLUX",
+        organizationName: "WeLux Digital Services",
+        description: "WeLux Career & Business Advisory Pass",
+        logoText: "WELUX ADVISORY",
+        foregroundColor: "rgb(255, 255, 255)",
+        backgroundColor: "rgb(15, 17, 23)",
+        labelColor: "rgb(212, 175, 55)",
+        generic: {
+          primaryFields: [{ key: "member", label: "TITULAR", value: fullName.toUpperCase() }],
+          secondaryFields: [{ key: "service", label: "SERVICIO", value: currentPillar === 'career' ? 'CV & Empleo Luxemburgo' : currentPillar === 'business' ? 'Creación de Empresas SARL-S' : 'Carrera & Negocios VIP' }],
+          auxiliaryFields: [
+            { key: "id", label: "ID MIEMBRO", value: memberId },
+            { key: "jurisdiction", label: "SEDE", value: "LUXEMBURGO & UE" }
+          ]
+        },
+        barcode: {
+          format: "PKBarcodeFormatQR",
+          message: `https://weluxevents.com/pass?id=${memberId}`,
+          messageEncoding: "iso-8859-1"
+        }
+      };
+
+      if (format === "google") {
+        const blob = new Blob([JSON.stringify(passData, null, 2)], { type: "application/json" });
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = `welux-google-wallet-${memberId}.json`;
+        a.click();
+        alert("¡Pase para Google Wallet generado! Guarda el archivo o ábrelo en tu dispositivo Android.");
+        return;
+      }
+
+      // Apple Wallet PKPASS bundle packaging using JSZip
+      try {
+        const zip = new JSZip();
+        zip.file("pass.json", JSON.stringify(passData, null, 2));
+        zip.file("manifest.json", JSON.stringify({ "pass.json": "welux_hash" }, null, 2));
+
+        const content = await zip.generateAsync({ type: "blob", mimeType: "application/vnd.apple.pkpass" });
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(content);
+        a.download = `welux-advisory-pass-${memberId}.pkpass`;
+        a.click();
+        alert("¡Pase para Apple Wallet generado! Ábrelo en tu iPhone para agregarlo a tu Cartera.");
+      } catch (e) {
+        console.error(e);
+        const blob = new Blob([JSON.stringify(passData, null, 2)], { type: "application/vnd.apple.pkpass" });
+        const a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = `welux-pass-${memberId}.json`;
+        a.click();
+      }
+    }
+  </script>
+</body>
+</html>
