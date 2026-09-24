@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dossier Táctico: Misión China para Emprendedores Cubanos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-page: #FBFBFA;
+      --bg-surface: #FFFFFF;
+      --bg-muted: #F3F4F1;
+      --border-color: #E5E7EB;
+      --border-dark: #111827;
+      --text-main: #111827;
+      --text-muted: #374151;
+      --text-light: #6B7280;
+      --accent-crimson: #991B1B;
+      --accent-vermilion: #DC2626;
+      --accent-gold: #92400E;
+      --accent-forest: #166534;
+      --accent-navy: #1E3A8A;
+      --font-serif: 'Newsreader', Georgia, Cambria, serif;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', Menlo, Consolas, monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      font-size: 15px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      padding: 36px 16px 80px;
+    }
+
+    .document-container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.06);
+      border-radius: 4px;
+      padding: 56px 64px;
+    }
+
+    @media (max-width: 768px) {
+      body { padding: 12px 6px 40px; }
+      .document-container { padding: 24px 18px; border-radius: 0; }
+    }
+
+    /* Masthead / Header */
+    .masthead {
+      border-bottom: 2px solid var(--border-dark);
+      padding-bottom: 24px;
+      margin-bottom: 32px;
+    }
+
+    .masthead-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--text-light);
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 12px;
+      margin-bottom: 20px;
+    }
+
+    .badge-pill {
+      display: inline-block;
+      padding: 3px 8px;
+      font-weight: 600;
+      border: 1px solid currentColor;
+      border-radius: 2px;
+    }
+
+    .badge-red { color: var(--accent-crimson); }
+    .badge-forest { color: var(--accent-forest); }
+
+    h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 3.5vw, 2.75rem);
+      font-weight: 700;
+      line-height: 1.15;
+      color: var(--text-main);
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+
+    .lead-paragraph {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      line-height: 1.6;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    /* Action bar */
+    .action-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--bg-muted);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      padding: 12px 18px;
+      margin-bottom: 36px;
+      font-size: 13px;
+    }
+
+    .btn-print {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--text-main);
+      color: #FFF;
+      border: none;
+      padding: 8px 16px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      border-radius: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      transition: background 0.15s ease;
+    }
+
+    .btn-print:hover {
+      background: var(--accent-crimson);
+    }
+
+    /* Executive Balance Panel */
+    .balance-panel {
+      background: #FDFBF7;
+      border-left: 4px solid var(--accent-crimson);
+      border-top: 1px solid var(--border-color);
+      border-right: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+      padding: 24px;
+      margin-bottom: 40px;
+    }
+
+    .balance-panel h2 {
+      font-family: var(--font-serif);
+      font-size: 1.35rem;
+      color: var(--accent-crimson);
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .grid-metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .metric-card {
+      background: #FFFFFF;
+      border: 1px solid var(--border-color);
+      padding: 14px;
+    }
+
+    .metric-card .label {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      text-transform: uppercase;
+      color: var(--text-light);
+      margin-bottom: 4px;
+    }
+
+    .metric-card .val {
+      font-family: var(--font-mono);
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .metric-card .sub {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* Step Sections */
+    .step-section {
+      margin-bottom: 44px;
+      padding-bottom: 36px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .step-section:last-of-type {
+      border-bottom: none;
+    }
+
+    .step-header {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .step-num {
+      font-family: var(--font-mono);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--accent-crimson);
+      border-bottom: 2px solid var(--accent-crimson);
+      padding-bottom: 2px;
+    }
+
+    .step-timing {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      text-transform: uppercase;
+      color: var(--accent-gold);
+      letter-spacing: 0.05em;
+      font-weight: 600;
+    }
+
+    h3.step-title {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 14px;
+      line-height: 1.3;
+    }
+
+    .step-content p {
+      margin-bottom: 12px;
+      color: var(--text-main);
+    }
+
+    .step-content ul {
+      margin-left: 20px;
+      margin-bottom: 16px;
+    }
+
+    .step-content li {
+      margin-bottom: 8px;
+      color: var(--text-muted);
+    }
+
+    .step-content strong {
+      color: var(--text-main);
+    }
+
+    /* Editorial Photography Block */
+    .photo-block {
+      margin: 22px 0 24px;
+      background: #FAFAFA;
+      border: 1px solid var(--border-color);
+      padding: 10px;
+    }
+
+    .photo-block img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border: 1px solid #E5E7EB;
+    }
+
+    .photo-caption {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-light);
+      margin-top: 8px;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    /* Callout Boxes (Print Friendly) */
+    .callout {
+      border: 1px solid #D1D5DB;
+      background: #F9FAFB;
+      padding: 16px 20px;
+      margin: 18px 0;
+      border-left: 4px solid var(--text-main);
+      font-size: 13.5px;
+    }
+
+    .callout-alert {
+      border-left-color: var(--accent-vermilion);
+      background: #FEF2F2;
+      border-color: #FECACA;
+    }
+
+    .callout-alert strong {
+      color: var(--accent-crimson);
+    }
+
+    .callout-gold {
+      border-left-color: var(--accent-gold);
+      background: #FFFBEB;
+      border-color: #FDE68A;
+    }
+
+    /* Comparison Table (Editorial Paper Style) */
+    .table-section {
+      margin: 36px 0;
+    }
+
+    .table-section h3 {
+      font-family: var(--font-serif);
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+    }
+
+    table.editorial-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      border: 1px solid var(--border-dark);
+    }
+
+    table.editorial-table th {
+      background: var(--text-main);
+      color: #FFF;
+      text-align: left;
+      padding: 10px 14px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    table.editorial-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border-color);
+      color: var(--text-muted);
+    }
+
+    table.editorial-table tr:nth-child(even) td {
+      background: #FBFBFA;
+    }
+
+    table.editorial-table tr.total-row td {
+      background: #F3F4F1;
+      border-top: 2px solid var(--text-main);
+      font-weight: 700;
+      color: var(--text-main);
+      font-size: 13.5px;
+    }
+
+    .td-num {
+      font-family: var(--font-mono);
+      font-weight: 600;
+    }
+
+    .good-val { color: var(--accent-forest); }
+    .bad-val { color: var(--accent-crimson); }
+
+    /* Taxi Cards (High Contrast Print & Display) */
+    .taxi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px;
+      margin: 18px 0;
+    }
+
+    .taxi-card {
+      border: 2px solid var(--border-dark);
+      background: #FFFFFF;
+      padding: 14px;
+    }
+
+    .taxi-zh {
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: #000000;
+      margin: 8px 0 6px;
+      line-height: 1.25;
+      letter-spacing: 0.02em;
+    }
+
+    .taxi-pinyin {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--accent-navy);
+      font-weight: 600;
+    }
+
+    .taxi-es {
+      font-size: 12px;
+      color: var(--text-muted);
+      border-top: 1px dashed var(--border-color);
+      padding-top: 6px;
+      margin-top: 4px;
+    }
+
+    /* Checklist */
+    .checklist-section {
+      background: #FDFDFD;
+      border: 1px solid var(--border-dark);
+      padding: 24px;
+      margin-top: 36px;
+    }
+
+    .checklist-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: 2px solid var(--text-main);
+      padding-bottom: 10px;
+      margin-bottom: 16px;
+    }
+
+    .checklist-header h3 {
+      font-family: var(--font-serif);
+      font-size: 1.35rem;
+    }
+
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border-color);
+      cursor: pointer;
+      font-size: 13.5px;
+    }
+
+    .check-item:last-child {
+      border-bottom: none;
+    }
+
+    .check-box {
+      width: 18px;
+      height: 18px;
+      border: 1.5px solid var(--border-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 900;
+      flex-shrink: 0;
+      margin-top: 2px;
+      background: #FFF;
+    }
+
+    .check-item.done .check-box {
+      background: var(--text-main);
+      color: #FFF;
+    }
+
+    .check-item.done .check-text {
+      text-decoration: line-through;
+      color: var(--text-light);
+    }
+
+    /* Footer */
+    footer.doc-footer {
+      border-top: 1px solid var(--border-color);
+      padding-top: 24px;
+      margin-top: 48px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-light);
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    /* ==============================================================
+       PRINT SPECIFIC STYLESHEET (100% INK ON PAPER READABLE)
+       ============================================================== */
+    @media print {
+      body {
+        background: #FFFFFF !important;
+        color: #000000 !important;
+        padding: 0 !important;
+        font-size: 11pt !important;
+        line-height: 1.45 !important;
+      }
+
+      .document-container {
+        border: none !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        max-width: 100% !important;
+      }
+
+      .action-bar {
+        display: none !important;
+      }
+
+      .step-section {
+        page-break-inside: avoid;
+        margin-bottom: 24pt;
+        padding-bottom: 18pt;
+      }
+
+      .photo-block {
+        border: 1px solid #000 !important;
+        background: none !important;
+        page-break-inside: avoid;
+      }
+
+      .photo-block img {
+        border: none !important;
+        max-height: 250px;
+        object-fit: cover;
+      }
+
+      table.editorial-table {
+        border: 1.5pt solid #000 !important;
+        font-size: 9.5pt !important;
+        page-break-inside: avoid;
+      }
+
+      table.editorial-table th {
+        background: #E5E7EB !important;
+        color: #000 !important;
+        border-bottom: 1.5pt solid #000 !important;
+      }
+
+      table.editorial-table td {
+        border-bottom: 0.5pt solid #CCC !important;
+        color: #000 !important;
+      }
+
+      .taxi-card {
+        border: 1.5pt solid #000 !important;
+        page-break-inside: avoid;
+      }
+
+      .taxi-zh {
+        font-size: 16pt !important;
+      }
+
+      .checklist-section {
+        border: 1.5pt solid #000 !important;
+        page-break-inside: avoid;
+      }
+
+      .check-box {
+        border: 1pt solid #000 !important;
+      }
+
+      .callout {
+        border-left: 3pt solid #000 !important;
+        background: #F9FAFB !important;
+      }
+
+      a {
+        text-decoration: none !important;
+        color: #000 !important;
+      }
+    }
+  
+    /* Bencho Microinteractions integration */
+    .metric-card, .taxi-card {
+      transition: transform 0.15s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.2s ease;
+      transform-style: preserve-3d;
+      will-change: transform;
+    }
+    .metric-card:hover, .taxi-card:hover {
+      box-shadow: 0 12px 28px -6px rgba(0, 0, 0, 0.12);
+    }
+    .slide-confirm-container {
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px dashed var(--border-color);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+    .slide-track {
+      width: 100%;
+      max-width: 380px;
+      height: 52px;
+      background: #F3F4F1;
+      border: 1.5px solid var(--border-dark);
+      border-radius: 9999px;
+      position: relative;
+      padding: 3px;
+      user-select: none;
+      display: flex;
+      align-items: center;
+      transition: background 0.3s ease;
+    }
+    .slide-track.confirmed {
+      background: #DCFCE7;
+      border-color: #166534;
+    }
+    .slide-text {
+      width: 100%;
+      text-align: center;
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--text-muted);
+      letter-spacing: 0.06em;
+      pointer-events: none;
+      padding-left: 20px;
+      transition: opacity 0.2s ease;
+    }
+    .slide-thumb {
+      position: absolute;
+      left: 3px;
+      top: 3px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--text-main);
+      color: #FFF;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 14px;
+      cursor: grab;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.25);
+      z-index: 2;
+    }
+    .slide-thumb:active {
+      cursor: grabbing;
+      transform: scale(0.96);
+    }
+    .floating-nav {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #111827;
+      color: #FFF;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      border: 1px solid rgba(255,255,255,0.15);
+      z-index: 100;
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      font-weight: 600;
+    }
+    .floating-nav a {
+      color: #F3F4F6;
+      text-decoration: none;
+      padding: 4px 8px;
+      border-radius: 9999px;
+      transition: background 0.2s ease;
+    }
+    .floating-nav a:hover {
+      background: rgba(255,255,255,0.15);
+      color: #38BDF8;
+    }
+    @media print {
+      .slide-confirm-container, .floating-nav {
+        display: none !important;
+      }
+    }
+
+  </style>
+<body>
+
+  <!-- Top Navigation Bar to Guía Empresa -->
+  <div style="max-width: 900px; margin: 0 auto 20px; display: flex; justify-content: space-between; align-items: center; background: #111827; color: #F3F4F6; padding: 12px 20px; border-radius: 8px; font-family: 'Plus Jakarta Sans', system-ui, sans-serif; font-size: 13px; box-shadow: 0 4px 15px rgba(0,0,0,0.12); border: 1px solid #1F2937;">
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <span style="background: #991B1B; color: #FFF; font-weight: 700; font-size: 11px; padding: 3px 8px; border-radius: 4px; letter-spacing: 0.05em;">ACTUAL</span>
+      <strong>🇨🇳 Guía Misión Comercial China</strong>
+    </div>
+    <a href="guia/" style="background: linear-gradient(135deg, #F3E5AB 0%, #D4AF37 100%); color: #000; text-decoration: none; font-weight: 700; font-size: 12px; padding: 7px 15px; border-radius: 6px; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 2px 8px rgba(212,175,55,0.25);">
+      <span>🏛️ Guía para Crear Empresa (USA ⇄ Lux)</span>
+      <span>→</span>
+    </a>
+  </div>
+
+  <div class="document-container">
+    
+    <!-- Masthead -->
+    <header class="masthead">
+      <div class="masthead-meta">
+        <div><span>EXPEDIENTE:</span> CN-CUBA-COMEX-2026</div>
+        <div><span>DESTINO:</span> GUANGZHOU / FOSHAN / SHENZHEN / YIWU</div>
+        <div><span class="badge-pill badge-forest">PROTOCOLO INDEPENDIENTE</span></div>
+      </div>
+      <h1>Misión Comercial China: Manual del Emprendedor Cubano</h1>
+      <p class="lead-paragraph">Dossier táctico para la adquisición directa en fábricas, sin agencias comisionistas, con exención oficial de visado, blindaje de pagos y flete consolidado a Puerto del Mariel.</p>
+    </header>
+
+    <!-- Barra de Control de Impresión -->
+    <div class="action-bar">
+      <div>
+        <strong>Formato Editorial y de Impresión:</strong> Diseñado en tinta oscura de alto contraste sobre fondo limpio para lectura en pantalla, impresión física A4 o exportación directa a PDF.
+      </div>
+      <button class="btn-print" onclick="window.print()">
+        🖨️ Imprimir Dossier / Guardar PDF
+      </button>
+    </div>
+
+    <!-- Panel de Balance Financiero -->
+    <div class="balance-panel">
+      <h2>Ecuación de Rentabilidad: Hazlo Tú Mismo vs Paquete Comercial</h2>
+      <p style="font-size: 13.5px; color: var(--text-muted);">
+        Las agencias de viajes comercializan recorridos "empresariales" entre $7,500 y $9,000 USD por persona, llevándote a fábricas con comisiones pactadas. Al gestionar el viaje de forma independiente, el presupuesto total ronda los <strong>$2,770 a $3,200 USD</strong> y negocias a precio neto de fábrica.
+      </p>
+
+      <div class="grid-metrics">
+        <div class="metric-card">
+          <div class="label">Arancel Consular Visa</div>
+          <div class="val good-val">$0 USD</div>
+          <div class="sub">Exención oficial para cubanos (2025-2026)</div>
+        </div>
+        <div class="metric-card">
+          <div class="label">Traductor Independiente</div>
+          <div class="val good-val">$80 - $120</div>
+          <div class="sub">USD / día (estudiantes en Guangzhou)</div>
+        </div>
+        <div class="metric-card">
+          <div class="label">Tránsito Marítimo</div>
+          <div class="val">45 - 60 d</div>
+          <div class="sub">Línea directa COSCO a Mariel</div>
+        </div>
+        <div class="metric-card">
+          <div class="label">Margen Rescatado</div>
+          <div class="val good-val">35% - 70%</div>
+          <div class="sub">Ahorro frente a Panamá o revendedor</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FASE 1 -->
+    <section class="step-section">
+      <div class="step-header">
+        <span class="step-num">FASE 01</span>
+        <span class="step-timing">60 a 45 días antes • La Habana</span>
+      </div>
+      <h3 class="step-title">Preparación Documental y Credenciales de Respeto</h3>
+      <div class="step-content">
+        <p>En el comercio chino, la formalidad inicial determina el precio que te darán. Si te presentas como comprador informal, te tratarán como cliente minorista con sobreprecios de hasta el 40%.</p>
+        <ul>
+          <li><strong>Pasaporte Cubano:</strong> Mínimo 6 meses de vigencia contados a partir de la fecha prevista de salida de China. Debe contar con un mínimo de 4 páginas consecutivas sin sellos.</li>
+          <li><strong>Tarjetas Físicas Impresas (Innegociable):</strong> En Cuba manda a imprimir 200 tarjetas de presentación de buen gramaje. Deben incluir: Nombre, Cargo formal (<em>Managing Director</em> o <em>General Manager</em>), Nombre de la Mipyme o Firma, Teléfono con prefijo internacional (+53), Correo (evitar @nauta.cu; usar cuenta profesional o Gmail) y <strong>el código QR de tu cuenta de WeChat</strong>.</li>
+          <li><strong>Protocolo Chino de Entrega:</strong> Nunca entregues una tarjeta con una sola mano. Se entrega y se recibe con <strong>ambas manos</strong>, sosteniéndola por los extremos superiores y haciendo una leve inclinación. Mírala con atención durante 3 segundos antes de posarla sobre la mesa. Jamás la guardes en el bolsillo trasero del pantalón ni escribas notas sobre ella delante de tu contraparte.</li>
+        </ul>
+
+        <!-- Fotografía 1: Protocolo de tarjetas con WeChat QR -->
+        <div class="photo-block">
+          <img src="img/china_guia/business_cards.jpg" alt="Protocolo formal de intercambio de tarjetas de visita en China">
+          <div class="photo-caption">
+            <span>FIGURA 1.0 — Protocolo de entrega de tarjetas de presentación con ambas manos.</span>
+            <span>Obligatorio: Código QR de WeChat impreso para vinculación comercial inmediata en mesa.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FASE 2 -->
+    <section class="step-section">
+      <div class="step-header">
+        <span class="step-num">FASE 02</span>
+        <span class="step-timing">45 días antes • Plataforma Oficial</span>
+      </div>
+      <h3 class="step-title">Acreditación en la Feria de Cantón y Visa China ($0 Arancel)</h3>
+      <div class="step-content">
+        <p>No necesitas intermediarios ni gestorías pagadas para conseguir la carta de invitación oficial a China:</p>
+        <ul>
+          <li><strong>Paso 1 — Registro en la Feria:</strong> Accede a <code style="font-family: var(--font-mono); font-weight: 600;">cantonfair.org.cn</code> en la herramienta <em>Buyer E-Service Tool (BEST)</em>. Regístrate como comprador internacional aportando foto de pasaporte y datos de tu actividad comercial.</li>
+          <li><strong>Paso 2 — Carta de Invitación MOFCOM:</strong> En 48 horas el sistema emite la <em>Official Invitation Letter</em> expedida por el Centro de Comercio Exterior de China (adscrito al Ministerio de Comercio). Descárgala e imprímela en alta resolución.</li>
+          <li><strong>Paso 3 — Solicitud COVA (Miramar):</strong> Completa el formulario digital en <code style="font-family: var(--font-mono); font-weight: 600;">cova.mfa.gov.cn</code> seleccionando la Embajada en La Habana para la <strong>Visa Categoría M (Comercial)</strong>.</li>
+          <li><strong>Exención de Tasas:</strong> Desde enero de 2025, el gobierno chino eximió del pago de tasas consulares a los ciudadanos cubanos con pasaporte ordinario. El arancel consular es de <strong>$0 USD</strong>.</li>
+        </ul>
+
+        <!-- Fotografía 2: Canton Fair -->
+        <div class="photo-block">
+          <img src="img/china_guia/canton_fair.jpg" alt="Complejo ferial de Cantón en Guangzhou">
+          <div class="photo-caption">
+            <span>FIGURA 2.0 — Pabellón central del Complejo de Pazhou (Feria de Cantón, Guangzhou).</span>
+            <span>Acreditación presencial en Mostrador B con Buyer Badge oficial gratuita.</span>
+          </div>
+        </div>
+
+        <div class="callout callout-gold">
+          <strong>Elección de la Fase Correcta:</strong>
+          La Feria de Cantón se celebra en tres fases distintas:
+          <strong>Fase 1:</strong> Electrónica, electrodomésticos, energía solar/inversores, maquinaria, ferretería y vehículos.
+          <strong>Fase 2:</strong> Cerámica, sanitarios, muebles, menaje del hogar y construcción.
+          <strong>Fase 3:</strong> Textiles, calzado, oficina, medicamentos y alimentos. Planifica tu pasaje según la fase exacta de tu interés.
+        </div>
+      </div>
+    </section>
+
+    <!-- FASE 3 -->
+    <section class="step-section">
+      <div class="step-header">
+        <span class="step-num">FASE 03</span>
+        <span class="step-timing">30 días antes • Telecomunicaciones y Finanzas</span>
+      </div>
+      <h3 class="step-title">Supervivencia Digital: El Gran Cortafuegos y Pagos Móviles</h3>
+      <div class="step-content">
+        <div class="callout callout-alert">
+          <strong>ADVERTENCIA TÉCNICA CRÍTICA:</strong> En las redes locales de China (Wi-Fi de hoteles o aeropuertos) están totalmente bloqueados: Google, WhatsApp, Gmail, YouTube, Facebook, Instagram y ChatGPT. Dentro de China las tiendas de aplicaciones bloquean la descarga de VPNs.
+        </div>
+        <ul>
+          <li><strong>Solución A — eSIM Internacional de Datos (Recomendada):</strong> Adquiere antes de volar una eSIM prepago internacional con cobertura en China (vía <em>Airalo, Nomad</em> o <em>Holafly</em>). Las tarjetas extranjeras en roaming se canalizan fuera del territorio continental y <strong>no están afectadas por el Gran Cortafuegos</strong>: WhatsApp y Google funcionan sin necesidad de VPN.</li>
+          <li><strong>Solución B — VPNs descargadas en Cuba:</strong> Si usarás Wi-Fi, instala en tu teléfono antes de salir: <strong>LetsVPN</strong> (la de mayor estabilidad actual) y <strong>Astrill VPN</strong>.</li>
+          <li><strong>Pagos Móviles (Alipay):</strong> El dinero físico está casi extinto y las tarjetas físicas Visa/Mastercard no se aceptan en la calle. Descarga <strong>Alipay</strong>, ponlo en modo internacional, verifica tu pasaporte y vincula tu tarjeta internacional (Wise, Revolut, Tropipay). Todo pago de metro, taxi y comida se realiza escaneando el código QR.</li>
+          <li><strong>Efectivo de Emergencia:</strong> Lleva <strong>$400 a $500 USD en billetes físicos nuevos</strong> (sin tachaduras ni dobleces profundos) para canjear en ventanillas de <em>Bank of China</em> si la batería o la tarjeta fallaran.</li>
+        </ul>
+
+        <!-- Fotografía 3: Alipay QR Mobile Payment -->
+        <div class="photo-block">
+          <img src="img/china_guia/alipay_payment.jpg" alt="Pago mediante código QR con la aplicación Alipay en China">
+          <div class="photo-caption">
+            <span>FIGURA 3.0 — Pago móvil instantáneo escaneando código QR con Alipay.</span>
+            <span>Mecanismo estándar en toda China para transporte, alimentación, hoteles y comercios.</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FASE 4 y 5 -->
+    <section class="step-section">
+      <div class="step-header">
+        <span class="step-num">FASE 04 y 05</span>
+        <span class="step-timing">En Guangzhou • Rutas y Fábricas</span>
+      </div>
+      <h3 class="step-title">Alojamiento Legal, Acompañamiento y Corredor Fabril</h3>
+      <div class="step-content">
+        <ul>
+          <li><strong>Ley de Alojamiento para Extranjeros:</strong> Por normativa del Ministerio de Seguridad Pública de China, los extranjeros solo pueden registrarse en hoteles que cuenten con certificación expresa. En <strong>Trip.com</strong> debes activar el filtro obligatorio: <em>"Acepta huéspedes extranjeros" (Foreign Guests Allowed)</em>.</li>
+          <li><strong>Hoteles Recomendados:</strong> Cadenas de 3 y 4 estrellas como <em>Atour Hotel, Vienna Hotel o Ji Hotel</em> ubicados sobre la <strong>Línea 8 del Metro</strong> (estaciones <em>Pazhou</em> o <em>Wanshengwei</em>) o en el distrito comercial de <em>Tianhe</em> ($45 a $70 USD/noche con desayuno).</li>
+          <li><strong>Traductor en Español sin Intermediarios:</strong> En Guangzhou residen estudiantes cubanos y latinoamericanos becados en programas universitarios que ofrecen acompañamiento técnico por <strong>$80 a $120 USD por jornada</strong>, ahorrándote las tarifas de $350 USD/día de las agencias.</li>
+        </ul>
+
+        <!-- Fotografía 4: Tren de alta velocidad -->
+        <div class="photo-block">
+          <img src="img/china_guia/bullet_train.jpg" alt="Tren de alta velocidad en Estación Guangzhou Sur">
+          <div class="photo-caption">
+            <span>FIGURA 4.0 — Estación Guangzhou Sur (Guǎngzhōu Nán Zhàn). Trenes CRH de alta velocidad.</span>
+            <span>Conexión a Foshan en 20 min, Shenzhen en 35 min y Zhongshan en 30 min.</span>
+          </div>
+        </div>
+
+        <p><strong>El Cinturón Industrial del Delta del Río de las Perlas (a menos de 45 min en tren bala):</strong></p>
+        <ul>
+          <li><strong>Foshan (a 25 min):</strong> Centro mundial del mueble, cerámicas, perfilería de aluminio y herrajes de construcción.</li>
+          <li><strong>Zhongshan / Guzhen (a 35 min):</strong> Polo internacional de iluminación LED y material eléctrico.</li>
+          <li><strong>Dongguan:</strong> Maquinaria ligera, componentes de inyección plástica y calzado.</li>
+          <li><strong>Shenzhen (Huaqiangbei):</strong> Mayor mercado mundial de microelectrónica, baterías de litio y telefonía.</li>
+          <li><strong>Yiwu (Mercado Futian):</strong> Si requieres misceláneas y ferretería variada en lotes pequeños (cajas sueltas sin exigir contenedor completo).</li>
+        </ul>
+
+        <p style="margin-top: 18px;"><strong>Tarjetas Bilingües de Taxi (Imprimir o mostrar en pantalla):</strong></p>
+        <div class="taxi-grid">
+          <div class="taxi-card">
+            <div class="taxi-pinyin">Guǎngzhōu Báiyún Guójì Jīchǎng</div>
+            <div class="taxi-zh">请带我去广州白云国际机场</div>
+            <div class="taxi-es">Aeropuerto Internacional Guangzhou Baiyun</div>
+          </div>
+          <div class="taxi-card">
+            <div class="taxi-pinyin">Pázhōu Guǎngjiāohuì Zhǎnguǎn</div>
+            <div class="taxi-zh">请带我去琶洲广交会展馆</div>
+            <div class="taxi-es">Recinto de la Feria de Cantón (Pazhou)</div>
+          </div>
+          <div class="taxi-card">
+            <div class="taxi-pinyin">Guǎngzhōu Nán Zhàn (Gāotiě)</div>
+            <div class="taxi-zh">请带我去广州南站（坐高铁）</div>
+            <div class="taxi-es">Estación Sur de Tren de Alta Velocidad</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FASE 6 -->
+    <section class="step-section">
+      <div class="step-header">
+        <span class="step-num">FASE 06</span>
+        <span class="step-timing">Cierre de Contrato • Embarque a Mariel</span>
+      </div>
+      <h3 class="step-title">Negociación, Inspección de Calidad y Naviera</h3>
+      <div class="step-content">
+        <ul>
+          <li><strong>Incoterm Recomendado:</strong> Exige siempre cotización <strong>FOB (Free on Board)</strong> en el puerto chino más cercano (ej. <em>FOB Nansha</em> o <em>FOB Ningbo</em>). La fábrica es legalmente responsable del despacho de aduanas chino y de depositar el contenedor a bordo del buque.</li>
+          <li><strong>Estructura de Pago Obligatoria:</strong> <strong>30% de depósito inicial</strong> para arrancar la producción. <strong>El 70% restante NUNCA se entrega por adelantado</strong>: se liquida únicamente contra la presentación del reporte de <strong>Inspección de Calidad Aprobado</strong> y copia del <em>Bill of Lading</em> (BL).</li>
+          <li><strong>Inspección Pre-Embarque (PSI):</strong> Contrata un servicio de auditoría técnica independiente (empresas reconocidas como <em>QIMA</em>, <em>SGS</em> o inspectores locales colegiados). Por un costo de $250 a $300 USD envían un perito a la fábrica antes de colocar el precinto de aduanas para verificar cantidades, funcionamiento a 110V/60Hz y resistencia del embalaje.</li>
+        </ul>
+
+        <!-- Fotografía 5: Inspección de fábrica -->
+        <div class="photo-block">
+          <img src="img/china_guia/factory_inspection.jpg" alt="Auditoría de calidad en fábrica china">
+          <div class="photo-caption">
+            <span>FIGURA 5.0 — Inspección técnica pre-embarque (PSI) en nave de producción en Guangdong.</span>
+            <span>Verificación de especificaciones técnicas y voltaje antes de la liquidación del 70% restante.</span>
+          </div>
+        </div>
+
+        <!-- Fotografía 6: Buque portacontenedores en Nansha -->
+        <div class="photo-block">
+          <img src="img/china_guia/container_shipping.jpg" alt="Carga de contenedores en puerto marítimo de Nansha Guangzhou">
+          <div class="photo-caption">
+            <span>FIGURA 6.0 — Terminal portuaria de contenedores en Nansha (Guangzhou).</span>
+            <span>Embarque marítimo con COSCO Shipping Lines hacia Puerto del Mariel (45 a 60 días).</span>
+          </div>
+        </div>
+
+        <ul>
+          <li><strong>Naviera con Escala en TC Mariel:</strong> Gestiona la reserva con un agente de carga (*Freight Forwarder*) que opere con <strong>COSCO Shipping Lines</strong> (la naviera estatal china que mantiene enlaces directos y escalas feeder regulares con el Puerto del Mariel). El tránsito marítimo oscila entre 45 y 60 días.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Comparativa Financiera -->
+    <section class="table-section">
+      <h3>Comparativa de Costos: Tour de Agencia vs Gestión Independiente</h3>
+      <table class="editorial-table">
+        <thead>
+          <tr>
+            <th>Concepto de Costo</th>
+            <th>Paquete Comercial de Agencia</th>
+            <th>Gestión Directa Independiente</th>
+            <th>Diferencial / Ahorro</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Visado de Negocios (Categoría M)</strong></td>
+            <td class="td-num bad-val">$300 USD</td>
+            <td class="td-num good-val">$0 USD (exento)</td>
+            <td class="td-num good-val">+$300 USD</td>
+          </tr>
+          <tr>
+            <td><strong>Acreditación Feria de Cantón</strong></td>
+            <td>Tarifa incluida en paquete</td>
+            <td class="td-num good-val">$0 USD (vía BEST)</td>
+            <td class="td-num good-val">Gratuito</td>
+          </tr>
+          <tr>
+            <td><strong>Boleto Aéreo (Habana - Guangzhou)</strong></td>
+            <td class="td-num bad-val">$2,400 USD</td>
+            <td class="td-num good-val">$1,550 USD</td>
+            <td class="td-num good-val">+$850 USD</td>
+          </tr>
+          <tr>
+            <td><strong>Alojamiento (8 noches hotel 4★)</strong></td>
+            <td class="td-num bad-val">$1,600 USD</td>
+            <td class="td-num good-val">$520 USD (Trip.com)</td>
+            <td class="td-num good-val">+$1,080 USD</td>
+          </tr>
+          <tr>
+            <td><strong>Servicio de Traducción (7 días)</strong></td>
+            <td class="td-num bad-val">$2,450 USD ($350/día)</td>
+            <td class="td-num good-val">$700 USD ($100/día)</td>
+            <td class="td-num good-val">+$1,750 USD</td>
+          </tr>
+          <tr>
+            <td><strong>Comisiones sobre Compra en Fábrica</strong></td>
+            <td class="td-num bad-val">5% a 10% oculto</td>
+            <td class="td-num good-val">0% (Precio neto FOB)</td>
+            <td class="td-num good-val">Margen íntegro</td>
+          </tr>
+          <tr class="total-row">
+            <td><strong>GASTO ESTIMADO DE MISIÓN</strong></td>
+            <td class="td-num bad-val">$8,750 USD</td>
+            <td class="td-num good-val">$2,770 USD</td>
+            <td class="td-num good-val">Ahorras ~$5,980 USD</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Checklist Táctico -->
+    <section class="checklist-section">
+      <div class="checklist-header">
+        <h3>Lista de Control Pre-Vuelo</h3>
+        <span id="check-counter" style="font-family: var(--font-mono); font-size: 11px; font-weight: 700;">0 / 11 VERIFICADOS</span>
+      </div>
+      <div id="checklist-box">
+        <div class="check-item" onclick="toggleTask(this)">
+          <div class="check-box"></div>
+          <div class="check-text">1. Pasaporte cubano con >6 meses de vigencia y 4 páginas continuas en blanco.</div>
+        </div>
+        <div class="check-item" onclick="toggleTask(this)">
+          <div class="check-box"></div>
+          <div class="check-text">2. Mínimo 200 tarjetas de visita impresas en inglés con QR de WeChat incorporado.</div>
+        </div>
+        <div class="check-item" onclick="toggleTask(this)">
+          <div class="check-box"></div>
+          <div class="check-text">3. Registro completado en cantonfair.org.cn y carta de invitación MOFCOM en mano.</div>
+        </div>
+        <div class="check-item" onclick="toggleTask(this)">
+          <div class="check-box"></div>
+          <div class="check-text">4. Cita formalizada en sistema COVA para Visa M en Embajada de Miramar ($0 arancel).</div>
+        </div>
+        <div class="check-item" onclick="toggleTask(this)">
+          <div class="check-box"></div>
+          <div class="check-text">5. eSIM internacional de datos para China instalada (Airalo/Nomad) para acceso sin cortafuegos.</div>
+        </div>
+        <div class="check-item" onclick="toggleTask(this)">
+          <div class="check-box"></div>
+          <div class="check-text">6. LetsVPN y Astrill VPN configuradas y probadas en el terminal antes de partir.</div>
+        </div>
+        <div class="check-item" onclick="toggleTask(this)">
+          <div class="check-box"></div>
+          <div class="check-text">7. Alipay configurado en pasaporte y enlazado a tarjeta bancaria internacional.</div>
+        </div>
+        <div class="check-item" onclick="toggleTask(this)">
+          <div class="check-box"></div>
+          <div class="check-text">8. Reserva de $400 USD en billetes físicos sin dobleces ni sellos para emergencias.</div>
+        </div>
+        <div class="check-item" onclick="toggleTask(this)">
+          <div class="check-box"></div>
+          <div class="check-text">9. Hotel reservado en Trip.com con licencia expresa para extranjeros (Línea 8 Metro).</div>
+        </div>
+        <div class="check-item" onclick="toggleTask(this)">
+          <div class="check-box"></div>
+          <div class="check-text">10. Contacto pactado con intérprete hispanohablante independiente en Guangzhou.</div>
+        </div>
+        <div class="check-item" onclick="toggleTask(this)">
+          <div class="check-box"></div>
+          <div class="check-text">11. Regla de pago 30/70 definida con retención de saldo hasta inspección PSI aprobada.</div>
+        </div>
+      </div>
+
+      <div class="slide-confirm-container">
+        <div class="slide-track" id="check-slide-track">
+          <div class="slide-text" id="check-slide-text">DESLIZA PARA VALIDAR LISTA PRE-VIAJE ➔</div>
+          <div class="slide-thumb" id="check-slide-thumb">➔</div>
+        </div>
+        <div style="font-family: var(--font-mono); font-size: 10.5px; color: var(--text-light);">Microinteracción táctil Bencho: validación física anti-olvidos</div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="doc-footer">
+      <div>EXPEDIENTE CONFIDENCIAL • ECOSISTEMA JAY & CLAUDE</div>
+      <div>OPTIMIZADO PARA IMPRESIÓN EDITORIAL (A4 / CARTA)</div>
+      <div>ACTUALIZADO: SEPTIEMBRE 2026</div>
+    </footer>
+
+  </div>
+
+  <script>
+    function toggleTask(el) {
+      el.classList.toggle('done');
+      const box = el.querySelector('.check-box');
+      box.innerText = el.classList.contains('done') ? '✓' : '';
+      updateCounter();
+      saveProgress();
+    }
+
+    function updateCounter() {
+      const all = document.querySelectorAll('.check-item');
+      const done = document.querySelectorAll('.check-item.done');
+      document.getElementById('check-counter').innerText = `${done.length} / ${all.length} VERIFICADOS`;
+    }
+
+    function saveProgress() {
+      const items = Array.from(document.querySelectorAll('.check-item')).map(item => item.classList.contains('done'));
+      localStorage.setItem('dossier_china_checks', JSON.stringify(items));
+    }
+
+    function loadProgress() {
+      const data = localStorage.getItem('dossier_china_checks');
+      if (data) {
+        try {
+          const arr = JSON.parse(data);
+          const items = document.querySelectorAll('.check-item');
+          items.forEach((item, idx) => {
+            if (arr[idx]) {
+              item.classList.add('done');
+              item.querySelector('.check-box').innerText = '✓';
+            }
+          });
+        } catch(e) {}
+      }
+      updateCounter();
+    }
+
+    
+    /* Bencho Tilt on Metric & Taxi Cards */
+    const tiltElements = document.querySelectorAll('.metric-card, .taxi-card');
+    tiltElements.forEach(el => {
+      el.addEventListener('mousemove', (e) => {
+        const rect = el.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const cx = rect.width / 2;
+        const cy = rect.height / 2;
+        const rx = -((y - cy) / cy) * 9;
+        const ry = ((x - cx) / cx) * 9;
+        el.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-2px)`;
+      });
+      el.addEventListener('mouseleave', () => {
+        el.style.transform = 'perspective(800px) rotateX(0deg) rotateY(0deg) translateY(0px)';
+      });
+    });
+
+    /* Bencho Slide to Confirm for Checklist */
+    const sThumb = document.getElementById('check-slide-thumb');
+    const sTrack = document.getElementById('check-slide-track');
+    const sText = document.getElementById('check-slide-text');
+    let sDragging = false;
+    let sStartX = 0;
+    let sCurrentX = 0;
+
+    if (sThumb && sTrack) {
+      sThumb.addEventListener('mousedown', (e) => {
+        if (sTrack.classList.contains('confirmed')) return;
+        sDragging = true;
+        sStartX = e.clientX - sCurrentX;
+        sThumb.style.transition = 'none';
+      });
+
+      window.addEventListener('mousemove', (e) => {
+        if (!sDragging) return;
+        const maxS = sTrack.offsetWidth - sThumb.offsetWidth - 6;
+        let newX = e.clientX - sStartX;
+        if (newX < 0) newX = 0;
+        if (newX > maxS) newX = maxS + (newX - maxS) * 0.2;
+        sCurrentX = newX;
+        sThumb.style.transform = `translateX(${sCurrentX}px)`;
+        sText.style.opacity = Math.max(0, 1 - (sCurrentX / (maxS * 0.8)));
+      });
+
+      window.addEventListener('mouseup', () => {
+        if (!sDragging) return;
+        sDragging = false;
+        const maxS = sTrack.offsetWidth - sThumb.offsetWidth - 6;
+        sThumb.style.transition = 'transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)';
+        if (sCurrentX >= maxS * 0.85) {
+          sCurrentX = maxS;
+          sThumb.style.transform = `translateX(${maxS}px)`;
+          sThumb.innerText = '✓';
+          sTrack.classList.add('confirmed');
+          sText.innerText = '¡MISIÓN LISTA PARA DESPEGAR!';
+          sText.style.opacity = 1;
+          sText.style.color = '#166534';
+          // Mark all items as done
+          document.querySelectorAll('.check-item').forEach(item => {
+            if (!item.classList.contains('done')) item.click();
+          });
+        } else {
+          sCurrentX = 0;
+          sThumb.style.transform = 'translateX(0px)';
+          sText.style.opacity = 1;
+        }
+      });
+    }
+
+    window.onload = loadProgress;
+  </script>
+
+  <!-- Floating quick action bar -->
+  <div class="floating-nav">
+    <a href="#checklist-box">📋 Checklist</a>
+    <a href="#" onclick="window.print(); return false;">🖨️ Imprimir</a>
+    <a href="BENCHO_MICROINTERACCIONES.html" style="color: #FBBF24;">⚡ Bencho Lab ➔</a>
+  </div>
+</body>
+</html>
